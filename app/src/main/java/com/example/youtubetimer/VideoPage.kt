@@ -329,8 +329,6 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
 
     }
 
-    // TODO DELETE API KEY BEFORE UPLOADING
-
     override fun onBackPressed() {
         // Call before super.onBackPressed() and return so that we only exit fullscreen instead of leaving the activity
         if (isFullscreen) {

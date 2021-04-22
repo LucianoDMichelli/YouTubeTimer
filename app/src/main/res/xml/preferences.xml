@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <PreferenceCategory android:title="On video finish">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="swLoop"
+            android:title="Loop video" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="swAutoplayNext"
+            android:title="Autoplay next video" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Other">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="swBluetooth"
+            android:title="Turn off Bluetooth when timer is up" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="swFade"
+            android:summary="When enabled, volume will decrease by 1 every minute when timer is near the end such that volume at timer end will be 1\n\nExample: Volume is set to 5. When there are 4 minutes left on the timer, the volume is decreased by 1. Same happens with 3, 2, and 1 minute left."
+            android:title="Fade out volume" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="swPause"
+            android:title="Pause timer when video paused" />
+    </PreferenceCategory>
+</PreferenceScreen>

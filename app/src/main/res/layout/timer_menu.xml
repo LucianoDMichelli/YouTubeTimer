@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#202020"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvNumbers"
+        android:layout_width="match_parent"
+        android:layout_height="216dp"
+        android:layout_weight="1"
+        android:background="#00FFFFFF"
+        android:backgroundTint="#00FF0000"
+        android:gravity="center"
+        android:text="00h 00m 00s"
+        android:textAlignment="gravity"
+        android:textColor="#FFFFFF"
+        android:textSize="50sp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="464dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_weight="3"
+        android:background="#202020"
+        android:orientation="vertical">
+
+        <TableRow
+            style="@android:style/Holo.ButtonBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btn1"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:backgroundTint="#00FFFFFF"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="1"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                app:rippleColor="#90878787" />
+
+            <Button
+                android:id="@+id/btn2"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="2"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                app:rippleColor="#90878787" />
+
+            <Button
+                android:id="@+id/btn3"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:backgroundTint="#00FFFFFF"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="3"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                app:rippleColor="#90878787" />
+        </TableRow>
+
+        <TableRow
+
+            style="@android:style/Holo.ButtonBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btn4"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:backgroundTint="#00FFFFFF"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="4"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                app:rippleColor="#90878787" />
+
+            <Button
+                android:id="@+id/btn5"
+
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:backgroundTint="#00FFFFFF"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="5"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                app:rippleColor="#90878787" />
+
+            <Button
+                android:id="@+id/btn6"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:backgroundTint="#00FFFFFF"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="6"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                app:rippleColor="#90878787" />
+        </TableRow>
+
+        <TableRow
+
+            style="@android:style/Holo.ButtonBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btn7"
+
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:backgroundTint="#00FFFFFF"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="7"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                app:rippleColor="#90878787" />
+
+            <Button
+                android:id="@+id/btn8"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:backgroundTint="#00FFFFFF"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="8"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                app:rippleColor="#90878787" />
+
+            <Button
+                android:id="@+id/btn9"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:backgroundTint="#00FFFFFF"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="9"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                app:rippleColor="#90878787" />
+        </TableRow>
+
+        <TableRow
+            style="@android:style/Holo.ButtonBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:id="@+id/btnBackspace"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="#D31717"
+                android:contentDescription="Backspace"
+                android:longClickable="true"
+                app:srcCompat="@android:drawable/ic_input_delete" />
+
+            <Button
+                android:id="@+id/btn0"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:backgroundTint="#00FFFFFF"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="0"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                app:rippleColor="#90878787" />
+
+            <ImageButton
+                android:id="@+id/btnStart"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="#36C50E"
+                android:contentDescription="Start Timer"
+                android:scaleType="centerInside"
+                app:srcCompat="@android:drawable/ic_media_play" />
+
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

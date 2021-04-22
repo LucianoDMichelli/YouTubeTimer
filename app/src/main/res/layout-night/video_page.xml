@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VideoPage">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnBlackScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="18dp"
+        android:clickable="true"
+        android:contentDescription="@string/turns_screen_black_less_light_for_when_you_are_trying_to_sleep_and_saves_power_on_oled_screens"
+        android:src="@drawable/blackscreen_turnon"
+        app:backgroundTint="#8E8E8E"
+        app:layout_constraintBottom_toTopOf="@+id/btnPreferences"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/set_timer"
+        android:focusable="true"
+        android:outlineProvider="background"
+        android:src="@android:drawable/ic_lock_idle_alarm"
+        app:backgroundTint="#13CC51"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:useCompatPadding="false" />
+
+    <com.google.android.youtube.player.YouTubePlayerView
+        android:id="@+id/youtube_player"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tvTimerDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#535353"
+        android:elevation="3dp"
+        android:gravity="center_vertical"
+        android:includeFontPadding="false"
+        android:paddingLeft="5dp"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        android:theme="@style/Widget.AppCompat.Toolbar"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="00:00:00" />
+
+    <TextView
+        android:id="@+id/tvBlackScreen"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#000000"
+        android:elevation="2dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/svExtras"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/youtube_player" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:text="Chillhop Music Jazzy beats and whatnot rest of title"
+        android:textIsSelectable="true"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/youtube_player" />
+
+    <TextView
+        android:id="@+id/tvVideoInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:isScrollContainer="true"
+        android:nestedScrollingEnabled="true"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:text="1,894,124,456 views\n8,500,500M Likes * 35,000,000 dislikes * 8000 comments\nPosted September 25, 2009 by ChillHop Music"
+        android:textIsSelectable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnPreferences"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="18dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_menu_preferences"
+        app:layout_constraintBottom_toTopOf="@+id/btnTimer"
+        app:layout_constraintEnd_toEndOf="@+id/tvVideoInfo" />
+
+    <ScrollView
+        android:id="@+id/svExtras"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="3dp"
+        android:elevation="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvTimerDisplay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvVideoInfo">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="1dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/swDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="#5C5C5C"
+                android:elevation="1dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:text="Description"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:elevation="1dp"
+                android:isScrollContainer="true"
+                android:nestedScrollingEnabled="true"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:scrollbars="vertical"
+                android:text="TextView"
+                android:textIsSelectable="true"
+                android:visibility="gone" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/swComments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="#5C5C5C"
+                android:elevation="1dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:text="Comments"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvComments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:elevation="1dp"
+                android:isScrollContainer="true"
+                android:nestedScrollingEnabled="true"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:visibility="gone">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/swRelatedVideos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="#5C5C5C"
+                android:elevation="1dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:text="Related Videos"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvRelatedVideos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:elevation="1dp"
+                android:isScrollContainer="true"
+                android:nestedScrollingEnabled="true"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

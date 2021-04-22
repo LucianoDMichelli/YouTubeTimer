@@ -2,6 +2,8 @@
 
 The original idea for this app was for the user to turn on some music and be able to fall asleep without their phone dying or using unnecessary wifi (for those with data caps) or mobile data. When the app closes itself, the screen will time out and turn off as normal.
 
+![Video Screen](https://i.gyazo.com/c98a088151f425ccb80e2de91ac84517.png)
+
 ### Features
 
 **Timer:** Can be cancelled at any time. Will continue if new video is selected from Related Videos section. Closes app when finished.

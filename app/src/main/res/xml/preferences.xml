@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
 
     <PreferenceCategory android:title="On video finish">
@@ -21,10 +20,15 @@
             android:key="swBluetooth"
             android:title="Turn off Bluetooth when timer is up" />
         <SwitchPreference
+            android:layout_height="wrap_content"
             android:defaultValue="true"
+            android:fadeScrollbars="false"
+            android:isScrollContainer="false"
             android:key="swFade"
-            android:summary="When enabled, volume will decrease by 1 every minute when timer is near the end such that volume at timer end will be 1\n\nExample: Volume is set to 5. When there are 4 minutes left on the timer, the volume is decreased by 1. Same happens with 3, 2, and 1 minute left."
-            android:title="Fade out volume" />
+            android:nestedScrollingEnabled="false"
+            android:summary="When enabled, volume will decrease by 1 every minute when timer is near the end\n\nExample: Volume is set to 5. When there are 4 minutes left on the timer, the volume is decreased by 1. Same happens with 3, 2, and 1 minute left."
+            android:title="Fade out volume"
+            android:verticalScrollbarPosition="right" />
         <SwitchPreference
             android:defaultValue="true"
             android:key="swPause"

@@ -329,8 +329,6 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
 
     }
 
-    // TODO DELETE API KEY BEFORE UPLOADING
-
     override fun onBackPressed() {
         // Call before super.onBackPressed() and return so that we only exit fullscreen instead of leaving the activity
         if (isFullscreen) {
@@ -388,10 +386,10 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
                     if (swFade) {
                         // Decreases volume by 1 stage every minute when # minutes remaining falls below volume
                         // Ex. If volume is at 5, it will start decreasing when timer reaches 4 minutes
-                        // With 1 minute left volume will also be 1
+                        // With 1 minute left volume will also be 1 (assuming timer length in minutes is set greater than or equal to volume level)
                         // Eases transition to silence, should be less likely to wake up user with sudden lack of noise (don't quote me on that I'm not a sleep scientist)
                         val currentVolume = audio.getStreamVolume(volumeControlStream)
-                        if (timerMinutes < currentVolume && timerSeconds == 0L) {
+                        if (timerMinutes < currentVolume && timerSeconds == 0L && timerMinutes != 0L) {
                             audio.adjustStreamVolume(
                                     volumeControlStream,
                                     AudioManager.ADJUST_LOWER,

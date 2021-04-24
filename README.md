@@ -1,10 +1,15 @@
+
 # YouTubeTimer
 
 The original idea for this app was for the user to turn on some music and be able to fall asleep without their phone dying or using unnecessary wifi (for those with data caps) or mobile data. When the app closes itself, the screen will time out and turn off as normal.
 
-Demo: https://youtu.be/de4sB-o74Pk
+**Demo:** https://youtu.be/de4sB-o74Pk
 
-![Video Screen](https://i.gyazo.com/c98a088151f425ccb80e2de91ac84517.png)
+Screenshots (Dark Mode unavailable for Android versions below 10):
+
+![Screenshot_20210424-114841](https://user-images.githubusercontent.com/51410823/115964673-993f4200-a4f3-11eb-9a00-78cdf61ecf22.png) ![Video Screen](https://i.gyazo.com/c98a088151f425ccb80e2de91ac84517.png)
+
+
 
 ### Features
 

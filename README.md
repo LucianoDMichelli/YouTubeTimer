@@ -7,7 +7,7 @@ The original idea for this app was for the user to turn on some music and be abl
 
 Screenshots (Dark Mode unavailable for Android versions below 10):
 
-![Screenshot_20210424-114841](https://user-images.githubusercontent.com/51410823/115964673-993f4200-a4f3-11eb-9a00-78cdf61ecf22.png) ![Video Screen](https://i.gyazo.com/c98a088151f425ccb80e2de91ac84517.png)
+<img src="https://user-images.githubusercontent.com/51410823/115964673-993f4200-a4f3-11eb-9a00-78cdf61ecf22.png" alt="Light Mode" width="438" height="923"> ![Video Screen](https://i.gyazo.com/c98a088151f425ccb80e2de91ac84517.png)
 
 
 

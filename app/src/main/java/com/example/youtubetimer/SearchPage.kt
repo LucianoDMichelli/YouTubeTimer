@@ -27,7 +27,7 @@ class SearchPage : AppCompatActivity() {
         rvVideoList = findViewById(R.id.rvVideoList)
         ivLogo = findViewById(R.id.ivLogo)
 
-        var videoList: MutableList<VideoResult> = mutableListOf()
+        val videoList: MutableList<VideoResult> = mutableListOf()
 
         // Setting up RecyclerView
         videoListAdapter = VideoListAdapter(videoList)

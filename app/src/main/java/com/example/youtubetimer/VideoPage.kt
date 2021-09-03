@@ -3,13 +3,11 @@ package com.example.youtubetimer
 
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
-import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.media.AudioManager
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -105,7 +103,7 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
 
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+//    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.video_page)
@@ -178,7 +176,7 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
         if (startTimer) {
             tvTimerDisplay.visibility = View.VISIBLE
             btnTimer.setImageResource(android.R.drawable.ic_delete)
-            btnTimer.backgroundTintList = ColorStateList.valueOf((Color.argb(255, 255, 0, 0)))
+            btnTimer.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@VideoPage, R.color.red))
             startTimer(timerLength)
         }
 
@@ -190,20 +188,13 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
                 timeLeft = 0
                 tvTimerDisplay.visibility = View.GONE
                 val timerCancelAnimation: AnimatorSet = AnimatorInflater.loadAnimator(
-                        this@VideoPage,
-                        R.animator.fab_flip
+                    this@VideoPage,
+                    R.animator.fab_flip
                 ) as AnimatorSet
                 timerCancelAnimation.setTarget(btnTimer)
                 timerCancelAnimation.start()
                 btnTimer.setImageResource(android.R.drawable.ic_lock_idle_alarm)
-                btnTimer.backgroundTintList = ColorStateList.valueOf(
-                        (Color.argb(
-                                255,
-                                19,
-                                204,
-                                81
-                        ))
-                )
+                btnTimer.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@VideoPage, R.color.VideoPage_setTimer))
             }
             // If set timer button is pressed -> save video info so we can resume playback after timer is set
             else {
@@ -216,6 +207,7 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
                 startActivity(toTimerMenu)
             }
         }
+
 
         // Creates black overlay to cover video info (cannot cover video player or the video will pause)
         // Reduces light for when user is trying to sleep and saves battery if phone has OLED screen
@@ -236,7 +228,7 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
                 btnBlackScreen.setImageResource(R.drawable.blackscreen_turnoff)
                 tvBlackScreen.visibility = View.VISIBLE
                 isBlackScreen = true
-                tvTimerDisplay.setBackgroundColor((Color.argb(255, 0, 0, 0)))
+                tvTimerDisplay.setBackgroundColor(ContextCompat.getColor(this@VideoPage, R.color.black))
             }
             // If tvBlackScreen is visible -> get rid of it, set timer display background back to gray, change status bar back to red (if needed), and change button icon back
             else {
@@ -246,7 +238,7 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
                 btnBlackScreen.setImageResource(R.drawable.blackscreen_turnon)
                 tvBlackScreen.visibility = View.GONE
                 isBlackScreen = false
-                tvTimerDisplay.setBackgroundColor((Color.argb(255, 83, 83, 83)))
+                tvTimerDisplay.setBackgroundColor(ContextCompat.getColor(this@VideoPage, R.color.VideoPage_timerDisplay))
             }
         }
 
@@ -376,10 +368,10 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
                     // Sets " remaining" as grey and half the size of timer text
                     timerText2.setSpan(RelativeSizeSpan(0.5f), 0, 10, 0)
                     timerText2.setSpan(
-                            ForegroundColorSpan(Color.argb(255, 182, 182, 182)),
-                            0,
-                            10,
-                            0
+                        ForegroundColorSpan(ContextCompat.getColor(this@VideoPage, R.color.VideoPage_timertext2)),
+                        0,
+                        10,
+                        0
                     )
                     tvTimerDisplay.text = TextUtils.concat(timerText, timerText2)
 
@@ -391,9 +383,9 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
                         val currentVolume = audio.getStreamVolume(volumeControlStream)
                         if (timerMinutes < currentVolume && timerSeconds == 0L && timerMinutes != 0L) {
                             audio.adjustStreamVolume(
-                                    volumeControlStream,
-                                    AudioManager.ADJUST_LOWER,
-                                    9
+                                volumeControlStream,
+                                AudioManager.ADJUST_LOWER,
+                                9
                             ) // 9 = FLAG_ACTIVE_MEDIA_ONLY --> only adjust when video is playing
                         }
                     }
@@ -408,9 +400,9 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
                         }
                     }
                     Toast.makeText(
-                            this@VideoPage,
-                            "Timer complete. Closing app...",
-                            Toast.LENGTH_LONG
+                        this@VideoPage,
+                        getString(R.string.videoPage_timerfinished),
+                        Toast.LENGTH_LONG
                     ).show()
                     // Closes app
                     timeLeft = 0
@@ -429,10 +421,10 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
         val thread = Thread {
             try {
                 SearchAndCommentFunctions.generateSearch(
-                        "",
-                        videoList,
-                        sVideoCode,
-                        this@VideoPage
+                    "",
+                    videoList,
+                    sVideoCode,
+                    this@VideoPage
                 )
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -454,9 +446,9 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
         val thread = Thread {
             try {
                 SearchAndCommentFunctions.retrieveComments(
-                        sVideoCode,
-                        commentList,
-                        this@VideoPage
+                    sVideoCode,
+                    commentList,
+                    this@VideoPage
                 )
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -471,9 +463,9 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
     }
 
     override fun onInitializationSuccess(
-            provider: YouTubePlayer.Provider?,
-            player: YouTubePlayer,
-            wasRestored: Boolean
+        provider: YouTubePlayer.Provider?,
+        player: YouTubePlayer,
+        wasRestored: Boolean
     ) {
         this.player = player
         if (!wasRestored) {

@@ -13,11 +13,12 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="18dp"
         android:clickable="true"
-        android:contentDescription="@string/turns_screen_black_less_light_for_when_you_are_trying_to_sleep_and_saves_power_on_oled_screens"
+        android:contentDescription="@string/videoPage_lights_out_button_info"
         android:src="@drawable/blackscreen_turnon"
         app:backgroundTint="#8E8E8E"
         app:layout_constraintBottom_toTopOf="@+id/btnPreferences"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:focusable="true" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnTimer"
@@ -26,7 +27,7 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
-        android:contentDescription="@string/set_timer"
+        android:contentDescription="@string/videoPage_set_timer"
         android:focusable="true"
         android:outlineProvider="background"
         android:src="@android:drawable/ic_lock_idle_alarm"
@@ -52,7 +53,7 @@
         android:elevation="3dp"
         android:gravity="center_vertical"
         android:includeFontPadding="false"
-        android:paddingLeft="5dp"
+        android:paddingStart="5dp"
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         android:theme="@style/Widget.AppCompat.Toolbar"
@@ -81,7 +82,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
-        android:text="Chillhop Music Jazzy beats and whatnot rest of title"
+        android:text="@string/videoTitle_sample"
         android:textIsSelectable="true"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -97,7 +98,7 @@
         android:nestedScrollingEnabled="true"
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
-        android:text="1,894,124,456 views\n8,500,500M Likes * 35,000,000 dislikes * 8000 comments\nPosted September 25, 2009 by ChillHop Music"
+        android:text="@string/videoPage_info_sample"
         android:textIsSelectable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -110,9 +111,11 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="18dp"
         android:clickable="true"
+        android:contentDescription="@string/videoPage_preferences_button"
         android:src="@android:drawable/ic_menu_preferences"
         app:layout_constraintBottom_toTopOf="@+id/btnTimer"
-        app:layout_constraintEnd_toEndOf="@+id/tvVideoInfo" />
+        app:layout_constraintEnd_toEndOf="@+id/tvVideoInfo"
+        android:focusable="true" />
 
     <ScrollView
         android:id="@+id/svExtras"
@@ -141,7 +144,7 @@
                 android:elevation="1dp"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
-                android:text="Description"
+                android:text="@string/videoPage_description"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -156,7 +159,7 @@
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:scrollbars="vertical"
-                android:text="TextView"
+                android:text="@string/sample_text"
                 android:textIsSelectable="true"
                 android:visibility="gone" />
 
@@ -169,7 +172,7 @@
                 android:elevation="1dp"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
-                android:text="Comments"
+                android:text="@string/videoPage_comments"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:visibility="visible" />
@@ -197,7 +200,7 @@
                 android:elevation="1dp"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
-                android:text="Related Videos"
+                android:text="@string/videoPage_related_videos"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:visibility="visible" />

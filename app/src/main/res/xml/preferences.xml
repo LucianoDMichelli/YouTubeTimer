@@ -2,23 +2,23 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <PreferenceCategory android:title="On video finish">
+    <PreferenceCategory android:title="@string/pref_onvideofinish">
 
         <SwitchPreference
             android:defaultValue="false"
             android:key="swLoop"
-            android:title="Loop video" />
+            android:title="@string/pref_loopvideo" />
         <SwitchPreference
             android:defaultValue="false"
             android:key="swAutoplayNext"
-            android:title="Autoplay next video" />
+            android:title="@string/pref_autoplaynext" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Other">
+    <PreferenceCategory android:title="@string/pref_other">
 
         <SwitchPreference
             android:defaultValue="true"
             android:key="swBluetooth"
-            android:title="Turn off Bluetooth when timer is up" />
+            android:title="@string/pref_bluetooth" />
         <SwitchPreference
             android:layout_height="wrap_content"
             android:defaultValue="true"
@@ -26,12 +26,12 @@
             android:isScrollContainer="false"
             android:key="swFade"
             android:nestedScrollingEnabled="false"
-            android:summary="When enabled, volume will decrease by 1 every minute when timer is near the end\n\nExample: Volume is set to 5. When there are 4 minutes left on the timer, the volume is decreased by 1. Same happens with 3, 2, and 1 minute left."
-            android:title="Fade out volume"
+            android:summary="@string/pref_fadeoutSummary"
+            android:title="@string/pref_fadeout"
             android:verticalScrollbarPosition="right" />
         <SwitchPreference
             android:defaultValue="true"
             android:key="swPause"
-            android:title="Pause timer when video paused" />
+            android:title="@string/pref_pause" />
     </PreferenceCategory>
 </PreferenceScreen>

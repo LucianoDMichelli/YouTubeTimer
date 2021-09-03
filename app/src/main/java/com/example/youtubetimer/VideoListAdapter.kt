@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
@@ -64,20 +65,49 @@ class VideoListAdapter(private val dataSet: MutableList<VideoResult>) :
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+    
+        val resources = viewHolder.itemView.context.resources
+        // Format number according to locale and detect if plural
+        // Use Number type because view count is long, others are int
+        fun formatNumber(number: Number, pluralID: Int): String {
+            val formatted = NumberFormat.getNumberInstance(Locale.getDefault()).format(number)
+            // Views are stored as long but getQuantityString requires an integer for the count
+            // Numbers larger than max integer value become negative so just use MAX_VALUE
+            val count: Int = if (number.toLong() > Int.MAX_VALUE) Int.MAX_VALUE else number.toInt()
+            return resources.getQuantityString(pluralID, count, formatted)
+        }
 
         val videoInfoString = dataSet[position]
+    
         viewHolder.tvRowTitle.text = videoInfoString.videoTitle
         viewHolder.videoCode = videoInfoString.videoId
-        val viewCount = NumberFormat.getNumberInstance(Locale.US).format(videoInfoString.viewCount)
-        viewHolder.tvRowInfo.text = videoInfoString.channelTitle + " * " + viewCount + " views * " + videoInfoString.publishDate
+    
+        val numViews = formatNumber(videoInfoString.viewCount, R.plurals.VLAdapter_views)
+        val numLikes = formatNumber(videoInfoString.likeCount, R.plurals.VLAdapter_likes)
+        val numDislikes = formatNumber(videoInfoString.dislikeCount, R.plurals.VLAdapter_dislikes)
+        val numComments = formatNumber(videoInfoString.commentCount, R.plurals.VLAdapter_comments)
+        val publishDateAndChannel = resources.getString(R.string.VLAdapter_publishdate_and_channel, videoInfoString.publishDate, videoInfoString.channelTitle)
+    
+        viewHolder.tvRowInfo.text = videoInfoString.channelTitle + " * " + numViews + " * " + videoInfoString.publishDate
         viewHolder.tvDuration.text = videoInfoString.duration
+        if (videoInfoString.duration == resources.getString(R.string.SACF_livevideo)) {
+            viewHolder.tvDuration.setBackgroundColor(ContextCompat.getColor(viewHolder.itemView.context, R.color.red))
+        }
+        else {
+            viewHolder.tvDuration.setBackgroundColor(ContextCompat.getColor(viewHolder.itemView.context, R.color.VLA_durationbox))
+        }
+    
         // To pass along to VideoPage
-        viewHolder.tvRowVideoInfo.text =    viewCount + " views\n" +
-                                            NumberFormat.getNumberInstance(Locale.US).format(videoInfoString.likeCount) + " likes * " + NumberFormat.getNumberInstance(Locale.US).format(videoInfoString.dislikeCount) + " dislikes * " + NumberFormat.getNumberInstance(Locale.US).format(videoInfoString.commentCount) + " comments\n" +
-                                            "Posted " + videoInfoString.publishDate + " by " + videoInfoString.channelTitle +
+        viewHolder.tvRowVideoInfo.text =    numViews + "\n" +
+                                            numLikes + " * " + numDislikes + " * " + numComments + "\n" +
+                                            publishDateAndChannel +
                                             "*@*@*@*" + videoInfoString.description
         Picasso.get().load(videoInfoString.thumbnail).into(viewHolder.ivThumbnail)
+    
+
     }
+    
+
 
     override fun getItemCount() = dataSet.size
 }

@@ -1,9 +1,8 @@
 package com.example.youtubetimer
 
 import android.content.Context
+import android.content.res.Resources
 import android.os.Looper
-//import android.text.Html
-import android.util.Log
 import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import com.google.api.client.googleapis.json.GoogleJsonResponseException
@@ -13,11 +12,13 @@ import com.google.api.client.json.gson.GsonFactory
 import com.google.api.services.youtube.YouTube
 import java.io.IOException
 import java.security.GeneralSecurityException
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
 import java.time.Period
+import java.util.*
 
 
 object SearchAndCommentFunctions {
@@ -65,9 +66,9 @@ object SearchAndCommentFunctions {
                     .execute()
             }
             val videoIdList: MutableList<String> = mutableListOf()
-            // Search returns date as ex. 2021-03-21 -> change it to March 21, 2021
+            // Search returns date as ex. 2021-03-21 -> change it to March 21, 2021 or equivalent for locale
             val parser = SimpleDateFormat("yyyy-MM-dd")
-            val formatter = SimpleDateFormat("MMMM dd, yyyy")
+            val formatter = DateFormat.getDateInstance(1, Locale.getDefault())
             for (result in searchResponse.items) {
                 if (result.snippet != null) { // Search can return unavailable videos, skip them
                     if (result.id.videoId != null) {
@@ -99,7 +100,7 @@ object SearchAndCommentFunctions {
             val statsResponse = statsRequest.setKey(apiKey).setId(videoIdListString).execute()
             statsResponse.items.forEachIndexed { index, video ->
                 when (val duration = video.contentDetails.duration) {
-                    "P0D" -> videoList[index].duration = "Live"
+                    "P0D" -> videoList[index].duration = context.getString(R.string.SACF_livevideo)
                     else -> videoList[index].duration = getDuration(duration)
                 }
                 videoList[index].description = video.snippet.description
@@ -107,28 +108,21 @@ object SearchAndCommentFunctions {
                 videoList[index].viewCount =
                     if (video.statistics.viewCount != null) video.statistics.viewCount.toLong() else 0
                 videoList[index].likeCount =
-                    if (video.statistics.likeCount != null) video.statistics.likeCount.toLong() else 0
+                    if (video.statistics.likeCount != null) video.statistics.likeCount.toInt() else 0
                 videoList[index].dislikeCount =
-                    if (video.statistics.dislikeCount != null) video.statistics.dislikeCount.toLong() else 0
+                    if (video.statistics.dislikeCount != null) video.statistics.dislikeCount.toInt() else 0
                 videoList[index].commentCount =
-                    if (video.statistics.commentCount != null) video.statistics.commentCount.toLong() else 0
+                    if (video.statistics.commentCount != null) video.statistics.commentCount.toInt() else 0
             }
         }
         catch (e: GoogleJsonResponseException) {
-            // avoids java.lang.RuntimeException: Can't toast on a thread that has not called Looper.prepare()
-            android.os.Handler(Looper.getMainLooper()).post {
-                Toast.makeText(
-                    context,
-                    "ERROR " + e.details.code + ": " + e.details.errors[0].reason,
-                    Toast.LENGTH_LONG
-                ).show()
-                e.printStackTrace()
-            }
+            jsonResponseError(e, context)
         }
     }
 
     @Throws(GeneralSecurityException::class, IOException::class, GoogleJsonResponseException::class)
     fun retrieveComments(videoId: String, commentList: MutableList<CommentResult>, context: Context) {
+        val resources = context.resources
         val youtubeService = getService()
         // Define and execute the API request
         val commentRequest = youtubeService!!.commentThreads().list("snippet,replies")
@@ -142,14 +136,15 @@ object SearchAndCommentFunctions {
             for (result in commentResponse.items) {
                 if (result.snippet != null) { // Search can return unavailable videos, skip them
                     val topLevelComment = result.snippet.topLevelComment
+                    val totalReplyCount = result.snippet.totalReplyCount.toInt()
                     commentList.add(
                         CommentResult(
                             topLevelComment.snippet.authorProfileImageUrl,
                             topLevelComment.snippet.authorDisplayName,
-                            getTimeSincePosted(topLevelComment.snippet.publishedAt.toString()) ,
+                            getTimeSincePosted(topLevelComment.snippet.publishedAt.toString(), resources) ,
                             HtmlCompat.fromHtml(topLevelComment.snippet.textDisplay, HtmlCompat.FROM_HTML_MODE_LEGACY),
                             if (result.snippet.totalReplyCount != null)
-                                (result.snippet.totalReplyCount.toString() + if (result.snippet.totalReplyCount != 1L) " replies" else " reply")
+                                resources.getQuantityString(R.plurals.SACF_replies, totalReplyCount, totalReplyCount) // If one reply, "1 reply" --> else "X replies"
                             else ""
                         )
 
@@ -161,7 +156,7 @@ object SearchAndCommentFunctions {
                                 CommentResult(
                                     reply.snippet.authorProfileImageUrl,
                                     reply.snippet.authorDisplayName,
-                                    getTimeSincePosted(reply.snippet.publishedAt.toString()),
+                                    getTimeSincePosted(reply.snippet.publishedAt.toString(), resources),
                                     HtmlCompat.fromHtml(reply.snippet.textDisplay, HtmlCompat.FROM_HTML_MODE_LEGACY),
                                     "",
                                     true
@@ -173,47 +168,49 @@ object SearchAndCommentFunctions {
             }
         }
         catch (e: GoogleJsonResponseException) {
-            // avoids java.lang.RuntimeException: Can't toast on a thread that has not called Looper.prepare()
-            android.os.Handler(Looper.getMainLooper()).post {
-                Toast.makeText(
-                    context,
-                    "ERROR " + e.details.code + ": " + e.details.errors[0].reason,
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-            e.printStackTrace()
+            jsonResponseError(e, context)
         }
-
-
     }
 
-    private fun getTimeSincePosted(datePosted: String): String {
+    private fun jsonResponseError(e: GoogleJsonResponseException, context: Context) {
+        // avoids java.lang.RuntimeException: Can't toast on a thread that has not called Looper.prepare()
+        android.os.Handler(Looper.getMainLooper()).post {
+            Toast.makeText(
+                context,
+                context.getString(R.string.SACF_error, e.details.code, e.details.errors[0].reason),
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        e.printStackTrace()
+    }
+
+    private fun getTimeSincePosted(datePosted: String, resources: Resources): String {
         val instant: Instant = Instant.parse(datePosted)
         val duration: Duration = Duration.between(instant, Instant.now())
 
-        val seconds = duration.seconds
+        val seconds = duration.seconds.toInt()
         if (seconds < 60) {
-            return seconds.toString() + if (seconds != 1L) " seconds ago" else " second ago"
+            return resources.getQuantityString(R.plurals.SACF_timeSince_seconds, seconds, seconds)
         }
-        val minutes = duration.toMinutes()
+        val minutes = duration.toMinutes().toInt()
         if (minutes < 60) {
-            return minutes.toString() + if (minutes != 1L) " minutes ago" else " minute ago"
+            return resources.getQuantityString(R.plurals.SACF_timeSince_minutes, minutes, minutes)
         }
-        val hours = duration.toHours()
+        val hours = duration.toHours().toInt()
         if (hours < 24) {
-            return hours.toString() + if (hours != 1L) " hours ago" else " hour ago"
+            return resources.getQuantityString(R.plurals.SACF_timeSince_hours, hours, hours)
         }
-        val days = duration.toDays()
+        val days = duration.toDays().toInt()
         if (days <= 30) {
-            return days.toString() + if (days != 1L) " days ago" else " day ago"
+            return resources.getQuantityString(R.plurals.SACF_timeSince_days, days, days)
         }
 
         val today: LocalDate = LocalDate.now()
         val period: Period = Period.between(LocalDate.parse(datePosted.substring(0,10)), today)
         return if (period.years > 0) {
-            period.years.toString() + if (period.years != 1) " years ago" else " year ago"
+            resources.getQuantityString(R.plurals.SACF_timeSince_years, period.years, period.years)
         } else {
-            period.months.toString() + if (period.months != 1) " months ago" else " month ago"
+            resources.getQuantityString(R.plurals.SACF_timeSince_months, period.months, period.months)
         }
 
     }

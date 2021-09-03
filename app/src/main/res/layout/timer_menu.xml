@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#202020"
@@ -15,7 +14,7 @@
         android:background="#00FFFFFF"
         android:backgroundTint="#00FF0000"
         android:gravity="center"
-        android:text="00h 00m 00s"
+        android:text="@string/timerMenu_timeramount"
         android:textAlignment="gravity"
         android:textColor="#FFFFFF"
         android:textSize="50sp" />
@@ -191,7 +190,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:backgroundTint="#D31717"
-                android:contentDescription="Backspace"
+                android:contentDescription="@string/timerMenu_backspace"
                 android:longClickable="true"
                 app:srcCompat="@android:drawable/ic_input_delete" />
 
@@ -215,7 +214,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:backgroundTint="#36C50E"
-                android:contentDescription="Start Timer"
+                android:contentDescription="@string/timerMenu_starttimer"
                 android:scaleType="centerInside"
                 app:srcCompat="@android:drawable/ic_media_play" />
 

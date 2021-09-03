@@ -1,58 +1,105 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">YouTube Timer</string>
-    <string name="set_timer">Set timer</string>
-    <string name="timer_amount">00h 00m 00s</string>
-    <string name="turns_screen_black_less_light_for_when_you_are_trying_to_sleep_and_saves_power_on_oled_screens">Turns screen black (less light for when you are trying to sleep and saves power on OLED screens)</string>
 
-    <string name="youtube_api_demo">YouTube API Demos</string>
-
-    <string name="videowall_demo_name">Video Wall</string>
-    <string name="videolist_demo_name">Video List</string>
-    <string name="standalone_player_demo_name">Standalone Player</string>
-    <string name="playerview_demo_name">Simple PlayerView</string>
-    <string name="fragment_demo_name">Simple PlayerFragment</string>
-    <string name="player_controls_demo_name">Custom Player Controls</string>
-    <string name="action_bar_demo_name">Overlay ActionBar Demo</string>
-    <string name="fullscreen_demo_name">Custom Fullscreen Handling</string>
-    <string name="intents_demo_name">YouTube App Launcher Intents</string>
-
-    <string name="playerview_text">This is a YouTubePlayerView!</string>
-    <string name="playerfragment_text">This is a YouTubePlayerFragment!</string>
-
-    <string name="demo_select">Please select a demo:</string>
-    <string name="some_demos_disabled">* Your device is currently running Android API version <xliff:g id="current_version">%1$s</xliff:g>.</string>
-    <string name="list_item_disabled">Requires Android API version <xliff:g id="required_version">%1$s</xliff:g> or higher.</string>
-
-    <string name="play">Play</string>
-    <string name="pause">Pause</string>
-    <string name="skip_to">Skip To</string>
-    <string name="seconds">secs</string>
-    <string name="player_style">Player Style</string>
-    <string name="def">Default</string>
-    <string name="minimal">Minimal</string>
-    <string name="chromeless">Chromeless</string>
-
-    <string name="play_video">Play video</string>
-    <string name="play_playlist">Play playlist</string>
-    <string name="play_video_list">Play video list</string>
-    <string name="start_index">Start index</string>
-    <string name="start_time">Start time (sec)</string>
-    <string name="autoplay">Autoplay</string>
-    <string name="lightbox_mode">Lightbox mode</string>
-
-    <string name="intent_select">Please select an action:</string>
-    <string name="intent_disabled">This intent is not supported with the currently installed version of YouTube.</string>
-    <string name="youtube_currently_installed">YouTube version installed on this device: <xliff:g id="youtube_version">%1$s</xliff:g>.</string>
-    <string name="youtube_not_installed">YouTube is not installed on this device.</string>
-
-    <string name="fullscreen_tutorial">This is a demo which shows how to handle fullscreen behaviour. This activity has differents layouts for portrait, landscape and fullscreen. The user can enter fullscreen either by using the player controller or programmatically by the programmer (here using a button). If your activity does not have a landscape layout, you can choose to automatically enter fullscreen when the device is rotated to landscape orientation.</string>
-    <string name="enter_fullscreen">Enter Fullscreen</string>
-    <string name="landscape_fullscreen">Always fullscreen in landscape</string>
-
-    <string name="actionbar_tutorial">This is a demo which shows how to use the ActionBar as an overlay when the video is playing in fullscreen. The actionbar will automatically fade away along with the player controls when the video is being played in fullscreen. While not in fullscreen the Actionbar is visible and does not overlay any of the views.</string>
-
-    <string name="error_thumbnail_view">There was an error initializing the YouTubeThumbnailView (%1$s)</string>
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
     <string name="youtube_timer_logo">YouTube Timer Logo</string>
     <string name="video_thumbnail">Video thumbnail</string>
+
+    <string name="comment_numReplies_sample">500 replies</string>
+    <string name="comment_body_sample">Comment Body</string>
+    <string name="comment_profileandtime_sample">Bruce Wayne * 5 days ago</string>
+    <string name="comment_profilepicture">Commenter Profile Picture</string>
+
+    <string name="pref_onvideofinish">On video finish</string>
+    <string name="pref_loopvideo">Loop video</string>
+    <string name="pref_autoplaynext">Autoplay next video</string>
+    <string name="pref_other">Other</string>
+    <string name="pref_bluetooth">Turn off Bluetooth when timer is up</string>
+    <string name="pref_fadeout">Fade out volume</string>
+    <string name="pref_fadeoutSummary">When enabled, volume will decrease by 1 every minute when timer is near the end\n\nExample: Volume is set to 5. When there are 4 minutes left on the timer, the volume is decreased by 1. Same happens with 3, 2, and 1 minute left.</string>
+    <string name="pref_pause">Pause timer when video paused</string>
+
+    <string name="SACF_error">Error %d: %s</string> <!--ex. "Error 404: Not found"-->
+    <string name="SACF_livevideo">LIVE NOW</string>
+
+    <string name="sample_text">Sample Text</string>
+
+    <string name="searchHint">Search YouTube</string>
+
+    <string name="timerMenu_timeramount">00h 00m 00s</string>
+    <string name="timerMenu_starttimer">Start Timer</string>
+    <string name="timerMenu_backspace">Backspace</string>
+
+    <string name="videoPage_info_sample">1,894,124,456 views\n8,500,500M Likes * 35,000,000 dislikes * 8000 comments\nPosted September 25, 2009 by ChillHop Music</string>
+    <string name="videoPage_preferences_button">Preferences button</string>
+    <string name="videoPage_description">Description</string>
+    <string name="videoPage_comments">Comments</string>
+    <string name="videoPage_related_videos">Related Videos</string>
+    <string name="videoPage_set_timer">Set timer</string>
+    <string name="videoPage_lights_out_button_info">Turns screen black (less light for when you are trying to sleep and saves power on OLED screens)</string>
+
+    <string name="videoRow_duration_sample">108:24</string>
+    <string name="videoRow_info_sample">Chillhop Music * 8,844,844,844 views * September 24, 2009</string>
+
+    <string name="videoTitle_sample">Chillhop Music Jazzy Lofi Beats and whatnot rest of title</string>
+
+    <string name="VLAdapter_publishdate_and_channel">Posted %1$s by %2$s</string>
+    <string name="videoPage_timerfinished">Timer has finished. Closing app...</string>
+
+    <!--PLURALS: not shown in Translations Editor-->
+    <plurals name="SACF_replies">
+        <item quantity="one">%d reply</item>
+        <item quantity="other">%d replies</item>
+    </plurals>
+
+    <plurals name="SACF_timeSince_seconds">
+        <item quantity="one">%d second ago</item>
+        <item quantity="other">%d seconds ago</item>
+    </plurals>
+
+    <plurals name="SACF_timeSince_minutes">
+        <item quantity="one">%d minute ago</item>
+        <item quantity="other">%d minutes ago</item>
+    </plurals>
+
+    <plurals name="SACF_timeSince_hours">
+        <item quantity="one">%d hour ago</item>
+        <item quantity="other">%d hours ago</item>
+    </plurals>
+
+    <plurals name="SACF_timeSince_days">
+        <item quantity="one">%d day ago</item>
+        <item quantity="other">%d days ago</item>
+    </plurals>
+
+    <plurals name="SACF_timeSince_months">
+        <item quantity="one">%d month ago</item>
+        <item quantity="other">%d months ago</item>
+    </plurals>
+
+    <plurals name="SACF_timeSince_years">
+        <item quantity="one">%d year ago</item>
+        <item quantity="other">%d years ago</item>
+    </plurals>
+
+    <plurals name="VLAdapter_views">
+        <item quantity="one">%s view</item>
+        <item quantity="other">%s views</item>
+    </plurals>
+
+    <plurals name="VLAdapter_likes">
+        <item quantity="one">%s like</item>
+        <item quantity="other">%s likes</item>
+    </plurals>
+
+    <plurals name="VLAdapter_dislikes">
+        <item quantity="one">%s dislike</item>
+        <item quantity="other">%s dislikes</item>
+    </plurals>
+
+    <plurals name="VLAdapter_comments">
+        <item quantity="one">%s comment</item>
+        <item quantity="other">%s comments</item>
+    </plurals>
+
 </resources>

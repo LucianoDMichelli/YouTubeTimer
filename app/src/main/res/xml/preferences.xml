@@ -2,6 +2,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
 
+    <ListPreference
+        android:defaultValue="default"
+        android:entries="@array/Preferences_nightMode_entries"
+        android:entryValues="@array/Preferences_nightMode_entryValues"
+        android:key="listTheme"
+        android:title="Theme" />
     <PreferenceCategory android:title="@string/pref_onvideofinish">
 
         <SwitchPreference

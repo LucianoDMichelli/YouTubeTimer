@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".VideoPage"
+            android:theme="@style/Theme.YouTubeTimer.noTitle"
             android:configChanges="screenSize|orientation"> <!--needed to handle fullscreen player-->
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />

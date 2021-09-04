@@ -7,7 +7,7 @@ The original idea for this app was for the user to turn on some music and be abl
 
 **Demo:** https://youtu.be/de4sB-o74Pk
 
-Screenshots (Dark Mode unavailable for Android versions below 10):
+Screenshots (Light and Dark Theme):
 
 <img src="https://user-images.githubusercontent.com/51410823/115964673-993f4200-a4f3-11eb-9a00-78cdf61ecf22.png" alt="Light Mode" width="400" height="843"> <img src="https://i.gyazo.com/c98a088151f425ccb80e2de91ac84517.png" alt="Dark Mode" width="400" height="843"> 
 
@@ -15,11 +15,12 @@ Screenshots (Dark Mode unavailable for Android versions below 10):
 
 ### Features
 
-**Timer:** Can be cancelled at any time. Will continue if new video is selected from Related Videos section. Closes app when finished.
+**Timer:** Closes app when finished. Can be cancelled at any time. Will continue if new video is selected from Related Videos section.
 
 **Lights Out Button:** Turns status bar and entire screen (except for the video player) black. Creates less light if user is trying to sleep, and saves battery if user has a device with an OLED screen.
 
 **Preferences:**
+* Theme (Dark, Light, System Default)
 * Loop video or autoplay next video
 * Turn off Bluetooth when timer is complete
 * Fade out volume as timer ends

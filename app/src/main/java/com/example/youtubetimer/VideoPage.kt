@@ -9,6 +9,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.media.AudioManager
+import android.media.session.MediaSession
+import android.media.session.MediaSessionManager
+import android.media.session.PlaybackState
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -17,11 +20,15 @@ import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import android.widget.MediaController
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -33,8 +40,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.youtube.player.*
 import java.util.concurrent.TimeUnit
 
-
-class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateChangeListener, YouTubePlayer.PlaybackEventListener {
+class VideoPage : AppCompatActivity(), YouTubePlayer.OnInitializedListener, YouTubePlayer.PlayerStateChangeListener, YouTubePlayer.PlaybackEventListener {
 
     private var hours: Int = 0
     private var minutes: Int = 0
@@ -75,28 +81,25 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
     private var swAutoplayNext: Boolean = false
 
     private val apiKey: String = DeveloperKey.DEVELOPER_KEY
-
+    
     // Will allow us to adjust media volume in timer.onTick()
     private lateinit var audio: AudioManager
 
     private lateinit var sharedPreferences: SharedPreferences
-
-    private lateinit var youtubePlayerView: YouTubePlayerView
+    
+    private lateinit var youTubePlayerFragment: YouTubePlayerSupportFragmentX
+    private val RECOVERY_DIALOG_REQUEST = 1
 
     // Read preferences in onResume so they can get updated when we come back from settings page
     override fun onResume() {
         super.onResume()
+    
         swLoop = sharedPreferences.getBoolean("swLoop", false)
         swPause = sharedPreferences.getBoolean("swPause", false)
         swBluetooth = sharedPreferences.getBoolean("swBluetooth", false)
         swFade = sharedPreferences.getBoolean("swFade", false)
         swAutoplayNext = sharedPreferences.getBoolean("swAutoplayNext", false)
-
-        // Autoplay video on start and when coming back from another activity or app
-        if (this::player.isInitialized) {
-            player.play()
-        }
-
+        
         if (swAutoplayNext && !isGeneratedRelatedVideos) {
             getRelatedVideos()
         }
@@ -107,7 +110,8 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.video_page)
-
+        supportActionBar?.hide()
+    
         audio = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         volumeControlStream = AudioManager.STREAM_MUSIC
 
@@ -156,11 +160,17 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
         tvDescription.text = sDescription
         tvTitle.text = sVideoTitle
 
-        // Initialize YouTubePlayerView
-        youtubePlayerView = findViewById(R.id.youtube_player)
-        youtubePlayerView.initialize(apiKey, this)
-
-        // Convert timer length to milliseconds
+        // Initialize YouTubePlayerSupportFragmentX
+        // YouTubePlayerSupportFragmentX found at YouTubeTimer\app\src\main\java\com\google\android\youtube\player
+        youTubePlayerFragment = YouTubePlayerSupportFragmentX.newInstance()
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.youtube_fragment, youTubePlayerFragment)
+        fragmentTransaction.commit()
+    
+        youTubePlayerFragment.initialize(apiKey, this)
+    
+    
+    // Convert timer length to milliseconds
         var timerLength: Long = (hours*3600000 + minutes*60000 + seconds*1000).toLong()
 
         // If we switched videos while timer was running, use the time remaining on the original timer to start a new one
@@ -176,7 +186,12 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
         if (startTimer) {
             tvTimerDisplay.visibility = View.VISIBLE
             btnTimer.setImageResource(android.R.drawable.ic_delete)
-            btnTimer.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@VideoPage, R.color.red))
+            btnTimer.backgroundTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(
+                    this@VideoPage,
+                    R.color.red
+                )
+            )
             startTimer(timerLength)
         }
 
@@ -194,7 +209,12 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
                 timerCancelAnimation.setTarget(btnTimer)
                 timerCancelAnimation.start()
                 btnTimer.setImageResource(android.R.drawable.ic_lock_idle_alarm)
-                btnTimer.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@VideoPage, R.color.VideoPage_setTimer))
+                btnTimer.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        this@VideoPage,
+                        R.color.VideoPage_setTimer
+                    )
+                )
             }
             // If set timer button is pressed -> save video info so we can resume playback after timer is set
             else {
@@ -228,7 +248,12 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
                 btnBlackScreen.setImageResource(R.drawable.blackscreen_turnoff)
                 tvBlackScreen.visibility = View.VISIBLE
                 isBlackScreen = true
-                tvTimerDisplay.setBackgroundColor(ContextCompat.getColor(this@VideoPage, R.color.black))
+                tvTimerDisplay.setBackgroundColor(
+                    ContextCompat.getColor(
+                        this@VideoPage,
+                        R.color.black
+                    )
+                )
             }
             // If tvBlackScreen is visible -> get rid of it, set timer display background back to gray, change status bar back to red (if needed), and change button icon back
             else {
@@ -238,7 +263,12 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
                 btnBlackScreen.setImageResource(R.drawable.blackscreen_turnon)
                 tvBlackScreen.visibility = View.GONE
                 isBlackScreen = false
-                tvTimerDisplay.setBackgroundColor(ContextCompat.getColor(this@VideoPage, R.color.VideoPage_timerDisplay))
+                tvTimerDisplay.setBackgroundColor(
+                    ContextCompat.getColor(
+                        this@VideoPage,
+                        R.color.VideoPage_timerDisplay
+                    )
+                )
             }
         }
 
@@ -336,7 +366,7 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
         }
 
     }
-
+    
     companion object {
         // So we can maintain timer between videos
         var timeLeft: Long = 0
@@ -368,7 +398,12 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
                     // Sets " remaining" as grey and half the size of timer text
                     timerText2.setSpan(RelativeSizeSpan(0.5f), 0, 10, 0)
                     timerText2.setSpan(
-                        ForegroundColorSpan(ContextCompat.getColor(this@VideoPage, R.color.VideoPage_timertext2)),
+                        ForegroundColorSpan(
+                            ContextCompat.getColor(
+                                this@VideoPage,
+                                R.color.VideoPage_timertext2
+                            )
+                        ),
                         0,
                         10,
                         0
@@ -479,7 +514,21 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
             }
         }
     }
-
+    
+    override fun onInitializationFailure(
+        provider: YouTubePlayer.Provider?,
+        errorReason: YouTubeInitializationResult
+    ) {
+        if (errorReason.isUserRecoverableError) {
+            errorReason.getErrorDialog(this, RECOVERY_DIALOG_REQUEST)
+                .show()
+        } else {
+            val errorMessage =
+                String.format(getString(R.string.error_player), errorReason.toString())
+            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+        }
+    }
+    
     // Functions needed to implement YouTubePlayer.PlayerStateChangeListener
     override fun onLoading() {
     }
@@ -557,11 +606,6 @@ class VideoPage : YouTubeFailureRecoveryActivity(), YouTubePlayer.PlayerStateCha
     }
 
     override fun onSeekTo(p0: Int) {
-    }
-
-
-    override fun getYouTubePlayerProvider(): YouTubePlayer.Provider {
-        return findViewById(R.id.youtube_player)
     }
 
     //TODO if i can get it working https://stackoverflow.com/questions/64097610/android-picture-in-picture-mode?rq=1 (exclude from recents)

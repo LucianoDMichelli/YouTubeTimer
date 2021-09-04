@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="Preferences_nightMode_entries">
+        <item>Dark</item>
+        <item>Light</item>
+        <item>System Default</item>
+    </array>
+
+    <array name="Preferences_nightMode_entryValues">
+        <item>dark</item>
+        <item>light</item>
+        <item>default</item>
+    </array>
+</resources>

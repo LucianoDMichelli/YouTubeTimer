@@ -17,4 +17,8 @@
     <style name="ActionBarBlack" parent="Widget.AppCompat.ActionBar">
         <item name="background">@color/black</item>
     </style>
+
+    <style name="Theme.YouTubeTimer.noTitle" parent="Theme.YouTubeTimer">
+        <item name="android:windowActionBar">false</item>
+    </style>
 </resources>
